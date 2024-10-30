@@ -1,0 +1,30 @@
+# Compiler flags
+CFLAGS = -Wall -Werror
+
+# Target executable name
+TARGET = main
+
+# Pre-compiled object file
+PRECOMPILED_OBJ = list.o
+
+# Source files
+SOURCES = main.c process.c semaphore.c ipc.c utils.c globalVars.c
+
+# Automatically derived object files from SOURCES
+OBJECTS = $(SOURCES:.c=.o)
+
+# Default target
+all: build
+
+# Build target
+build: $(OBJECTS) $(PRECOMPILED_OBJ)
+	gcc $(CFLAGS) $^ -o $(TARGET) -lpthread
+
+# Rule to compile source files into object files
+%.o: %.c
+	gcc $(CFLAGS) -c $< -o $@
+
+# Clean target
+clean:
+	rm -f $(TARGET) $(OBJECTS)
+
